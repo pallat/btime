@@ -37,5 +37,19 @@ func TestAddMonthsLeapYear(t *testing.T) {
 			t.Errorf("%d %v %v", i, d.Day(), expected[i])
 		}
 	}
+}
 
+func TestAddMonthsAnotherDayInMonth(t *testing.T) {
+	date := time.Date(2016, time.January, 15, 23, 59, 59, 0, time.UTC)
+
+	months := [...]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
+
+	for i, month := range months {
+		d := AddMonth(date, month)
+		fmt.Println(d)
+
+		if d.Day() != 15 {
+			t.Errorf("%d %v %v", i, d.Day(), 15)
+		}
+	}
 }
