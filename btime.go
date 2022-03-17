@@ -23,8 +23,17 @@ func AddMonth(t time.Time, months int) time.Time {
 	hour, min, sec := t.Clock()
 
 	if day > monthDays[month+time.Month(months)%12] {
-		day = monthDays[month+time.Month(months)]
+		m := monthDays[month+time.Month(months)]
+		if (month+time.Month(months) == time.February) && isLeap(t.Year()) {
+			m += 1
+		}
+
+		day = m
 	}
 
 	return time.Date(year, month+time.Month(months), day, hour, min, sec, 0, t.Location())
+}
+
+func isLeap(year int) bool {
+	return year%4 == 0 && (year%100 != 0 || year%400 == 0)
 }
